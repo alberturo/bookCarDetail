@@ -1,6 +1,19 @@
 .env
 __pycache__/
 *.py[cod]
+# Virtual environments
 .venv
+env/
+venv/
+# macOS specific files
 .DS_Store
+# VSCode specific files
 .vscode/
+# Log files
+*.log
+# Database files
+*.sqlite3
+*.db
+# Compiled files
+*.pyc
+*.pyo
