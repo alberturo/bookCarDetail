@@ -1,0 +1,21 @@
+.create-modal {
+  width: 30em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fdd28a;
+  border-radius: 5px;
+  padding: 10px;
+  font-family: "Delius";
+}
+
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+#create-button {
+  width: fit-content;
+  align-self: center;
+}

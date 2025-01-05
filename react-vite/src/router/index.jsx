@@ -1,7 +1,10 @@
-import { createBrowserRouter } from 'react-router-dom';
-import LoginFormPage from '../components/LoginFormPage';
-import SignupFormPage from '../components/SignupFormPage';
-import Layout from './Layout';
+import { createBrowserRouter } from "react-router-dom";
+import Layout from "./Layout";
+import LandingPage from "../components/LandingPage";
+import UserCollection from "../components/UserCollections/UserCollections";
+import BookList from "../components/BookList";
+import BookDetails from "../components/BookDetails";
+import CollectionList from "../components/CollectionList/CollectionList";
 
 export const router = createBrowserRouter([
   {
@@ -9,15 +12,23 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <LandingPage />,
       },
       {
-        path: "login",
-        element: <LoginFormPage />,
+        path: "/users/:userId/:username/collections",
+        element: <UserCollection />,
       },
       {
-        path: "signup",
-        element: <SignupFormPage />,
+        path: "/books/:lang",
+        element: <BookList />,
+      },
+      {
+        path: "/books/:bookId/details",
+        element: <BookDetails />,
+      },
+      {
+        path: "/collections/:collectionId/books",
+        element: <CollectionList />,
       },
     ],
   },
