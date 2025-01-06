@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, session, redirect, send_from_directory
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -15,9 +15,20 @@ from .config import Config
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
+frontend_folder = os.path.join(os.getcwd(), "..","react-vite", "dist")
+dist_folder = os.path.join(frontend_folder, "dist")
+
 # Setup login manager
 login = LoginManager(app)
 login.login_view = 'auth.unauthorized'
+
+#serve static files from the "dist" folder under the "frontend" directory
+@app.route("/", defaults={"filename":""})
+@app.route("/<path:filename>")
+def index(filename):
+    if not filename:
+        filename = "index.html"
+    return send_from_directory(dist_folder, filename)
 
 
 @login.user_loader
@@ -41,11 +52,6 @@ Migrate(app, db)
 CORS(app)
 
 
-# Since we are deploying with Docker and Flask,
-# we won't be using a buildpack when we deploy to Heroku.
-# Therefore, we need to make sure that in production any
-# request made over http is redirected to https.
-# Well.........
 @app.before_request
 def https_redirect():
     if os.environ.get('FLASK_ENV') == 'production':
